@@ -10,7 +10,7 @@ Set-Variable -Name 'ConfirmPreference' -Value 'None' -Scope Global
 
 [void]([System.Reflection.Assembly]::LoadWithPartialName("System.Windows.Forms"))
 
-$os_type = (Get-WmiObject -Class Win32_ComputerSystem).SystemType -match ‘(x64)’
+$os_type = (Get-WmiObject -Class Win32_ComputerSystem).SystemType -match вЂ(x64)вЂ™
 
 $gdpi_f = "DPI"
 $path = ""
@@ -22,14 +22,14 @@ else
 	$path = [Environment]::GetEnvironmentVariable("ProgramFiles(x86)") + "\" + $gdpi_f + "\x86"
 }
 
-Write-Output "Проверка наличия GoodbyeDPI"
+Write-Output "ГЏГ°Г®ГўГҐГ°ГЄГ  Г­Г Г«ГЁГ·ГЁГї GoodbyeDPI"
 
 $gdpi_service_exists = Get-Service -Name "D.F.E." -ErrorAction SilentlyContinue
 
 if ($gdpi_service_exists.Length -gt 0) {
-	$result = [System.Windows.Forms.MessageBox]::Show('У Вас уже установлен D.F.E.' + [System.Environment]::NewLine + [System.Environment]::NewLine + 'Удалить?' , "D.F.E." , [System.Windows.Forms.MessageBoxButtons]::YesNo, [System.Windows.Forms.MessageBoxIcon]::Error)
+	$result = [System.Windows.Forms.MessageBox]::Show('Г“ Г‚Г Г± ГіГ¦ГҐ ГіГ±ГІГ Г­Г®ГўГ«ГҐГ­ D.F.E.' + [System.Environment]::NewLine + [System.Environment]::NewLine + 'Г“Г¤Г Г«ГЁГІГј?' , "D.F.E." , [System.Windows.Forms.MessageBoxButtons]::YesNo, [System.Windows.Forms.MessageBoxIcon]::Error)
 	if ($result -eq 'Yes') {
-		Write-Output "Останавливаем и удаляем сервис D.F.E."
+		Write-Output "ГЋГ±ГІГ Г­Г ГўГ«ГЁГўГ ГҐГ¬ ГЁ ГіГ¤Г Г«ГїГҐГ¬ Г±ГҐГ°ГўГЁГ± D.F.E."
 		[void](sc.exe stop "D.F.E.")
 		[void](sc.exe delete "D.F.E.")
 		DelGDPY -ofp (Split-Path $path -Parent)
@@ -40,7 +40,7 @@ if ($gdpi_service_exists.Length -gt 0) {
 	}
 }
 
-$result = [System.Windows.Forms.MessageBox]::Show('Скрипт установит сервис D.F.E.' + [System.Environment]::NewLine + [System.Environment]::NewLine + 'Установить?' , "D.F.E." , [System.Windows.Forms.MessageBoxButtons]::YesNo, [System.Windows.Forms.MessageBoxIcon]::Question)
+$result = [System.Windows.Forms.MessageBox]::Show('Г‘ГЄГ°ГЁГЇГІ ГіГ±ГІГ Г­Г®ГўГЁГІ Г±ГҐГ°ГўГЁГ± D.F.E.' + [System.Environment]::NewLine + [System.Environment]::NewLine + 'Г“Г±ГІГ Г­Г®ГўГЁГІГј?' , "D.F.E." , [System.Windows.Forms.MessageBoxButtons]::YesNo, [System.Windows.Forms.MessageBoxIcon]::Question)
 if ($result -eq 'Yes') {
 
 	$path = Split-Path (Split-Path $path -Parent) -Parent
@@ -49,13 +49,13 @@ if ($result -eq 'Yes') {
 	
 	[void](New-Item -Path "$path\$gdpi_f" -ItemType Directory -Confirm:$False -Force)
 
-	Write-Output "Скачивание GoodbyeDPI..."
+	Write-Output "Г‘ГЄГ Г·ГЁГўГ Г­ГЁГҐ GoodbyeDPI..."
 			
 	Invoke-RestMethod 'https://api.github.com/repos/ValdikSS/GoodbyeDPI/releases/latest' | % assets | ? name -like "*.zip" | % { 
 		Invoke-WebRequest $_.browser_download_url -OutFile ("$path\" + $_.name) 
 		$gdpi_an = $_.name
 	}
-	Write-Output "Распаковка архива"
+	Write-Output "ГђГ Г±ГЇГ ГЄГ®ГўГЄГ  Г Г°ГµГЁГўГ "
 	
 	Expand-Archive -Path "$path\$gdpi_an" -DestinationPath $path
 	$unpacked_folder = "$path\$gdpi_an".TrimEnd('.zip')
@@ -64,11 +64,11 @@ if ($result -eq 'Yes') {
 	if (Test-Path "$unpacked_folder") {[void](Remove-Item "$unpacked_folder" -Confirm:$False -Force -Recurse)}
 	if (Test-Path "$path\$gdpi_an") {[void](Remove-Item "$path\$gdpi_an" -Confirm:$False -Force)}
 
-	Write-Output "Загрузка white_list.txt"
+	Write-Output "Г‡Г ГЈГ°ГіГ§ГЄГ  white_list.txt"
 
 	Start-BitsTransfer -Source 'https://raw.githubusercontent.com/Sam282SD/D.F.E./main/white_list.txt' -Destination "$path\$gdpi_f"
 
-	Write-Output "Устанавка сервиса D.F.E."
+	Write-Output "Г“Г±ГІГ Г­Г ГўГЄГ  Г±ГҐГ°ГўГЁГ±Г  D.F.E."
 	
 	if ($os_type -eq $True) {
 		$exe_path = [Environment]::GetEnvironmentVariable("ProgramFiles") + "\" + $gdpi_f + "\x86_64\goodbyedpi.exe"
@@ -82,10 +82,10 @@ if ($result -eq 'Yes') {
 	[void](sc.exe config "D.F.E." start= auto)
 	[void](sc.exe description "D.F.E." "Discord for everyone.")
 	
-	Write-Output "Запускаем сервис D.F.E."
+	Write-Output "Г‡Г ГЇГіГ±ГЄГ ГҐГ¬ Г±ГҐГ°ГўГЁГ± D.F.E."
 	[void](sc.exe start "D.F.E.")
 	
-	$result = [System.Windows.Forms.MessageBox]::Show('D.F.E. успешно установлен' + [System.Environment]::NewLine + [System.Environment]::NewLine + "Скрипт будет работать всегда с этого момента, пока Вы не удалите его повторным запуском D.F.E._installer.bat", "D.F.E." , [System.Windows.Forms.MessageBoxButtons]::OK, [System.Windows.Forms.MessageBoxIcon]::Information)
+	$result = [System.Windows.Forms.MessageBox]::Show('D.F.E. ГіГ±ГЇГҐГёГ­Г® ГіГ±ГІГ Г­Г®ГўГ«ГҐГ­' + [System.Environment]::NewLine + [System.Environment]::NewLine + "Г‘ГЄГ°ГЁГЇГІ ГЎГіГ¤ГҐГІ Г°Г ГЎГ®ГІГ ГІГј ГўГ±ГҐГЈГ¤Г  Г± ГЅГІГ®ГЈГ® Г¬Г®Г¬ГҐГ­ГІГ , ГЇГ®ГЄГ  Г‚Г» Г­ГҐ ГіГ¤Г Г«ГЁГІГҐ ГҐГЈГ® ГЇГ®ГўГІГ®Г°Г­Г»Г¬ Г§Г ГЇГіГ±ГЄГ®Г¬ D.F.E._installer.bat", "D.F.E." , [System.Windows.Forms.MessageBoxButtons]::OK, [System.Windows.Forms.MessageBoxIcon]::Information)
 }
 if ($result -eq 'No') {
 	exit
@@ -98,7 +98,7 @@ function DelGDPY
 	)
 	
 	if (Test-Path $ofp) {
-		Write-Output "Удаление старых файлов GoodbyeDPI"
+		Write-Output "Г“Г¤Г Г«ГҐГ­ГЁГҐ Г±ГІГ Г°Г»Гµ ГґГ Г©Г«Г®Гў GoodbyeDPI"
 		[void](Remove-Item $ofp -Recurse -Confirm:$False -Force)
 	}
 }
