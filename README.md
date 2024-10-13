@@ -1,2 +1,2 @@
-# D.F.E.
-D.F.E. - Discord for everyone
+# D.F.E
+D.F.E - Discord for everyone
