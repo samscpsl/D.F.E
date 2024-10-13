@@ -1,3 +1,3 @@
 # D.F.E
-[![Github All Releases](https://img.shields.io/github/downloads/Sam282SD/D.F.E/total.svg)]()
+[![Github All Releases]()]()
 D.F.E - Discord for everyone
