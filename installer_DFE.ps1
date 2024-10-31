@@ -76,7 +76,8 @@ if ($winws_service_exists.Length -gt 0) {
 }
 
 $result = [System.Windows.Forms.MessageBox]::Show('Скрипт установит DFE для восстановления доступа к Discord и Youtube' + [System.Environment]::NewLine + [System.Environment]::NewLine + 'Разрешить установку?' , "D.F.E" , [System.Windows.Forms.MessageBoxButtons]::YesNo, [System.Windows.Forms.MessageBoxIcon]::Question)
-if ($result -eq 'Yes') {
+if ($result -eq 'Yes') 
+{
 
 	$path = Split-Path $path -Parent
 
@@ -85,7 +86,7 @@ if ($result -eq 'Yes') {
 	[void](New-Item -Path "$path\$winws_folder" -ItemType Directory -Confirm:$False -Force)
 
 	# Downloading latest Winws to installtion folder
-	Write-Output "Загрузка последней версии Winws"
+	Write-Output "Загрузка..."
 	
 	Invoke-WebRequest -Uri "https://github.com/bol-van/zapret-win-bundle/archive/refs/heads/master.zip" -OutFile "$path\zapret-win-bundle-master.zip"
 	
