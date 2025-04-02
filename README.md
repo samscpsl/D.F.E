@@ -8,5 +8,6 @@ D.F.E - Discord for everyone - восстановление доступа к Di
 
 [Скачайте](https://github.com/Sam282SD/D.F.E/releases/tag/1.0.0) D.F.E._installer.bat и запустите от имени администратора. Далее следуйте подсказкам.
 https://telegra.ph/Obhod-blokirovki-Discord-i-Youtube-DFE-10-21
+
 ![dfe](https://github.com/user-attachments/assets/5b47ad5a-e697-43a1-904e-e5dde049c5a5)
 
